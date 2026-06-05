@@ -1,0 +1,11 @@
+salloc -A amath-ckpt -p ckpt --gpus=1 --mem=32G --time=00:30:00
+nvidia-smi
+module load conda
+mkdir -p /gscratch/amath/$USER/.conda/pkgs
+mkdir -p /gscratch/amath/$USER/.conda/envs
+conda config --add pkgs_dirs /gscratch/amath/$USER/.conda/pkgs
+conda config --add envs_dirs /gscratch/amath/$USER/.conda/envs
+conda clean --all -y
+conda create --name fused_attention_env python=3.10 pytorch triton torchvision torchaudio pytorch-cuda=11.8 matplotlib -c pytorch -c nvidia -y
+
+ncu --set roofline -o fused_attention_benchmark python3 fused_attention_benchmark.py
