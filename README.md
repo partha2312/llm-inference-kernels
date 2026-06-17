@@ -184,3 +184,17 @@ The normalized singular value spectra of $W$ and $E$ are plotted below, where ea
 The error spectrum exhibits a slower decay rate than the weight matrix spectrum, with significant energy persisting across all singular directions. This indicates that the RTN quantization error is not low-rank — it cannot be faithfully represented by a truncated SVD approximation of small rank.
 
 This finding has a direct implication for low-rank correction methods: a LoRA adapter applied post-quantization would capture only the dominant components of $E$, leaving the diffuse residual error uncorrected. This is consistent with the motivation for methods such as QLoRA, which do not attempt to correct RTN error via low-rank adaptation but instead employ more sophisticated quantization schemes (NF4) specifically designed to minimize the spectral spread of the quantization error in the first place.
+
+###### Activation Anisotropy as an RTN Quantization Safety Diagnostic
+
+Round-to-Nearest (RTN) activation quantization sets a single scale factor from the maximum absolute value in a tensor. When a small number of directions dominate a layer's activation matrix, that scale factor is set by those dominant directions, and the remaining structure is quantized with insufficient resolution. This project introduces a cheap, closed-form diagnostic for this failure mode using the ratio of the Frobenius norm to the spectral norm.
+For an activation matrix X with n meaningful singular directions, this ratio is bounded between 1 (a single dominant direction — RTN unsafe) and √n (energy spread evenly across all directions — RTN safe). The diagnostic requires only a Frobenius norm and one power-iteration step to estimate the spectral norm, avoiding a full SVD.
+
+Forward hooks were registered on the input to each attention QKV projection across all 16 layers of meta-llama/Llama-3.2-1B, capturing the activation matrix immediately before quantization would occur, on a 512–1157 token sample from WikiText-2. The diagnostic was validated independently in two inference runtimes:
+In HuggingFace Transformers, the anisotropy score ranged from 2.01 at layer 0 to 1.78–1.86 in later layers, against a theoretical ceiling of √512 ≈ 22.6.
+
+In vLLM, instrumented in single-process eager mode (VLLM_ENABLE_V1_MULTIPROCESSING=0, enforce_eager=True) with chunked prefill disabled to capture the full prompt in one forward pass, the same diagnostic on the same model produced scores of 2.01 at layer 0 settling to 1.79–1.96 in later layers, against a ceiling of √1157 ≈ 34.
+
+Both runtimes converge on the same conclusion: Llama-3.2-1B's activations are consistently anisotropic across all layers, far below their respective theoretical safety ceilings. This confirms, independent of implementation, that naive per-tensor RTN activation quantization is unsafe across the entire model — consistent with why production quantization methods (SmoothQuant, AWQ) apply per-channel scaling rather than per-tensor RTN.
+
+Instrumenting vLLM required two non-obvious fixes: disabling CUDA graph capture, since graph replay bypasses the PyTorch module call machinery that register_forward_hook depends on, and disabling chunked prefill, since vLLM's default prompt chunking caused hooks to fire on partial prefill segments rather than the full input sequence.

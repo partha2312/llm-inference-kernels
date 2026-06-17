@@ -1,0 +1,110 @@
+WARNING 06-17 01:50:53 [config.py:71] Support for Transformers v4 is deprecated. The Transformers v4 codepath will become unmaintained in vLLM v0.22.0 and will be removed in vLLM v0.24.0. Please upgrade to Transformers v5: pip install --upgrade transformers
+Input shape: torch.Size([1, 512])
+Forward pass OK
+layer: layer:0, anisotropy_score: 2.0085737705230713
+layer: layer:1, anisotropy_score: 2.150557518005371
+layer: layer:2, anisotropy_score: 2.199671506881714
+layer: layer:3, anisotropy_score: 2.030877113342285
+layer: layer:4, anisotropy_score: 1.9832031726837158
+layer: layer:5, anisotropy_score: 2.0853288173675537
+layer: layer:6, anisotropy_score: 1.9195977449417114
+layer: layer:7, anisotropy_score: 1.8318064212799072
+layer: layer:8, anisotropy_score: 1.7940969467163086
+layer: layer:9, anisotropy_score: 1.8233541250228882
+layer: layer:10, anisotropy_score: 1.84636652469635
+layer: layer:11, anisotropy_score: 1.8050166368484497
+layer: layer:12, anisotropy_score: 1.837928056716919
+layer: layer:13, anisotropy_score: 1.820596694946289
+layer: layer:14, anisotropy_score: 1.7791255712509155
+layer: layer:15, anisotropy_score: 1.7949151992797852
+INFO 06-17 01:50:58 [api_utils.py:273] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'enable_chunked_prefill': False, 'model': 'meta-llama/Llama-3.2-1B'}
+WARNING 06-17 01:50:58 [arg_utils.py:1557] The global random seed is set to 0. Since VLLM_ENABLE_V1_MULTIPROCESSING is set to False, this may affect the random state of the Python process that launched vLLM.
+INFO 06-17 01:50:59 [model.py:611] Resolved architecture: LlamaForCausalLM
+INFO 06-17 01:50:59 [model.py:1745] Using max model len 131072
+WARNING 06-17 01:50:59 [arg_utils.py:2388] This model does not officially support disabling chunked prefill. Disabling this manually may cause the engine to crash or produce incorrect outputs.
+INFO 06-17 01:50:59 [vllm.py:999] Asynchronous scheduling is enabled.
+WARNING 06-17 01:50:59 [vllm.py:1055] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 06-17 01:50:59 [vllm.py:1097] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 06-17 01:50:59 [kernel.py:270] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+INFO 06-17 01:50:59 [vllm.py:1273] Cudagraph is disabled under eager mode
+INFO 06-17 01:50:59 [compilation.py:321] Enabled custom fusions: norm_quant, act_quant
+INFO 06-17 01:51:01 [core.py:113] Initializing a V1 LLM engine (v0.23.0) with config: model='meta-llama/Llama-3.2-1B', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=meta-llama/Llama-3.2-1B, enable_prefix_caching=True, enable_chunked_prefill=False, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [131072], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native']), enable_flashinfer_autotune=True, moe_backend='auto', linear_backend='auto')
+INFO 06-17 01:51:02 [parallel_state.py:1568] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.24.0.2:36931 backend=nccl
+INFO 06-17 01:51:02 [parallel_state.py:1903] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+INFO 06-17 01:51:02 [gpu_worker.py:303] Using V2 Model Runner
+INFO 06-17 01:51:03 [topk_topp_sampler.py:55] Using FlashInfer for top-p & top-k sampling.
+INFO 06-17 01:51:03 [model_runner.py:298] Loading model from scratch...
+INFO 06-17 01:51:03 [cuda.py:378] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+INFO 06-17 01:51:03 [flash_attn.py:636] Using FlashAttention version 2
+INFO 06-17 01:51:03 [weight_utils.py:647] No model.safetensors.index.json found in remote.
+INFO 06-17 01:51:03 [weight_utils.py:922] Filesystem type for checkpoints: OVERLAY. Checkpoint size: 2.30 GiB. Available RAM: 215.18 GiB.
+INFO 06-17 01:51:03 [weight_utils.py:945] Auto-prefetch is disabled because the filesystem (OVERLAY) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+INFO 06-17 01:51:04 [default_loader.py:397] Loading weights took 0.42 seconds
+INFO 06-17 01:51:04 [model_runner.py:319] Model loading took 2.32 GiB and 1.763646 seconds
+INFO 06-17 01:51:08 [gpu_worker.py:480] Available KV cache memory: 11.8 GiB
+INFO 06-17 01:51:08 [kv_cache_utils.py:1744] GPU KV cache size: 386,560 tokens
+INFO 06-17 01:51:08 [kv_cache_utils.py:1745] Maximum concurrency for 131,072 tokens per request: 2.95x
+INFO 06-17 01:51:08 [jit_monitor.py:54] Kernel JIT monitor activated — Triton JIT compilations during inference will be logged as warnings.
+INFO 06-17 01:51:08 [core.py:313] init engine (profile, create kv cache, warmup model) took 3.68 s
+LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): VocabParallelEmbedding(num_embeddings=128256, embedding_dim=2048, org_vocab_size=128256, num_embeddings_padded=128256, tp_size=1)
+    (layers): ModuleList(
+      (0-15): 16 x LlamaDecoderLayer(
+        (self_attn): LlamaAttention(
+          (qkv_proj): QKVParallelLinear(in_features=2048, output_features=3072, bias=False, tp_size=1, gather_output=False)
+          (o_proj): RowParallelLinear(in_features=2048, output_features=2048, bias=False, tp_size=1, reduce_results=True)
+          (rotary_emb): Llama3RotaryEmbedding(
+            head_size=64, rotary_dim=64, max_position_embeddings=131072, base=500000.0, is_neox_style=True
+            (apply_rotary_emb): ApplyRotaryEmb(is_neox_style=True, enable_fp32_compute=False)
+          )
+          (attn): Attention(head_size=64, num_heads=32, num_kv_heads=8, scale=0.125, backend=FlashAttentionImpl)
+        )
+        (mlp): LlamaMLP(
+          (gate_up_proj): MergedColumnParallelLinear(in_features=2048, output_features=16384, bias=False, tp_size=1, gather_output=False)
+          (down_proj): RowParallelLinear(in_features=8192, output_features=2048, bias=False, tp_size=1, reduce_results=True)
+          (act_fn): SiluAndMul()
+        )
+        (input_layernorm): RMSNorm(hidden_size=2048, eps=1e-05)
+        (post_attention_layernorm): RMSNorm(hidden_size=2048, eps=1e-05)
+      )
+    )
+    (norm): RMSNorm(hidden_size=2048, eps=1e-05)
+  )
+  (lm_head): ParallelLMHead(num_embeddings=128256, embedding_dim=2048, org_vocab_size=128256, num_embeddings_padded=128256, tp_size=1)
+  (logits_processor): LogitsProcessor(vocab_size=128256, org_vocab_size=128256, scale=1.0, logits_as_input=False)
+)
+Starting generation...5000
+WARNING 06-17 01:51:09 [model.py:1502] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 0.6, 'top_p': 0.9}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+input shape:torch.Size([1157, 2048])
+layer: layer-0, anisotropy_score: 2.0149946212768555
+layer: layer-1, anisotropy_score: 2.133707284927368
+layer: layer-2, anisotropy_score: 2.186018228530884
+layer: layer-3, anisotropy_score: 2.025667667388916
+layer: layer-4, anisotropy_score: 2.003129482269287
+layer: layer-5, anisotropy_score: 2.1151785850524902
+layer: layer-6, anisotropy_score: 1.9938552379608154
+layer: layer-7, anisotropy_score: 1.8975614309310913
+layer: layer-8, anisotropy_score: 1.8779053688049316
+layer: layer-9, anisotropy_score: 1.8932920694351196
+layer: layer-10, anisotropy_score: 1.960525393486023
+layer: layer-11, anisotropy_score: 1.8914364576339722
+layer: layer-12, anisotropy_score: 1.9221936464309692
+layer: layer-13, anisotropy_score: 1.8562535047531128
+layer: layer-14, anisotropy_score: 1.7860491275787354
+layer: layer-15, anisotropy_score: 1.8185068368911743
