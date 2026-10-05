@@ -116,7 +116,7 @@ The two attention matmuls ($QK^T$ and the weighted sum with $V$) contribute $4 \
 | 2048 | 137.4G | 201.3M | 1024 | 75.1 | 24.1% |
 | 4096 | 549.8G | 268.4M | 2048 | 76.6 | 24.6% |
 
-![Roofline Analysis](roofline.png)
+![Roofline Analysis](flash_attention/roofline.png)
 
 *Figure 1: Roofline analysis of the fused causal attention kernel on A100 PCIe. All three operating points lie well past the ridge point (161 FLOP/byte), confirming the kernel is compute-bound across all tested sequence lengths. The gap between achieved TFLOP/s (~70–77) and the compute ceiling (312 TFLOP/s) represents optimization headroom addressable through software pipelining and improved warp occupancy.*
 
