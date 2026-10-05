@@ -179,7 +179,7 @@ Given the SVD $E = U \Sigma V^T$, the singular values $\sigma_1 \geq \sigma_2 \g
 
 The normalized singular value spectra of $W$ and $E$ are plotted below, where each spectrum is divided by its leading singular value to enable direct comparison of decay rates.
 
-![alt text](quantization_error_svd.png)
+![alt text](quantization/quantization_error_svd.png)
 
 The error spectrum exhibits a slower decay rate than the weight matrix spectrum, with significant energy persisting across all singular directions. This indicates that the RTN quantization error is not low-rank — it cannot be faithfully represented by a truncated SVD approximation of small rank.
 
