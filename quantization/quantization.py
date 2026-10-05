@@ -33,12 +33,12 @@ int8_scale_factor = 127
 Wq_max, _ = torch.max(torch.abs(Wq), dim=1, keepdim=True)
 Wq_max_scaled = Wq_max / int8_scale_factor
 Wq_scaled = Wq / Wq_max_scaled
-Wq_quantized = Wq_scaled.to(torch.int8)
+Wq_quantized = torch.round(Wq_scaled).to(torch.int8)
 Wq_quantized_fp16 = Wq_quantized.to(torch.float16)
 Wq_unquantized = Wq_quantized_fp16 * Wq_max_scaled
 error = Wq - Wq_unquantized
 print(torch.linalg.norm(error) / torch.linalg.norm(Wq))
-# tensor(0.0175)
+# tensor(0.0101)
 
 u_err, s_err, v_err = torch.linalg.svd(error)
 u_wq, s_wq, v_wq = torch.linalg.svd(Wq.float())
@@ -55,3 +55,4 @@ plt.title("singular values of weight vs quantization error")
 plt.xlabel("index")
 plt.ylabel("singular value")
 plt.legend()
+plt.savefig("quantization_error_svd.png", dpi=300, bbox_inches="tight")
