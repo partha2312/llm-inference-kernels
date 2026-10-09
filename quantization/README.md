@@ -1,4 +1,4 @@
-#### Quantization
+# Quantization
 
 ##### What is Quantization and Why is it Required?
 

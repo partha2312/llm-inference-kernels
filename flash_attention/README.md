@@ -1,10 +1,6 @@
-### LLM Inference Kernels
+# Flash Attention
 
-This repository consists of implementation and result analysis of kernel-level optimization techniques for LLM inference, including a fused causal attention kernel and an analysis of INT8 weight quantization.
-
-#### Flash Attention
-
-##### What is Flash Attention and Why is it required ?
+#### What is Flash Attention and Why is it required ?
 The attention mechanism computes $softmax((Q K^T)/√d_k) V$.
 
 For sequence length N, the NxN attention matrix requires O(N²) memory. At N=4096 with fp16, this is 32MB per head — far exceeding the ~200KB SRAM available per SM and has to be updated directly in VRAM. This constant round trip costs multiple GPU cycles and this memory traffic becomes the bottleneck, not arithmetic.
